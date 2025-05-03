@@ -7,13 +7,13 @@
 
 # Установка MySQL
 
-    ![alt text](https://github.com/A1ex93/ddl_dml_homework/blob/main/image/1.1.png?raw=true)
-
     docker run --name mysql8 -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 -d mysql:8.0
+
+![alt text](https://github.com/A1ex93/ddl_dml_homework/blob/main/image/1.1.png)
 
 # Подключение к контейнеру
 
-    docker exec -it mysql8 mysql -u root -p
+    docker exec -it mysql8 mysql -u root -p    
 
 1.2. Создайте учётную запись sys_temp.
 
@@ -25,24 +25,30 @@
 
     SELECT User, Host FROM mysql.user;
 
+![alt text](https://github.com/A1ex93/ddl_dml_homework/blob/main/image/1.2-1.3.png)
+
 1.4. Дайте все права для пользователя sys_temp.
 
-GRANT ALL PRIVILEGES ON *.* TO 'sys_temp'@'%' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'sys_temp' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
+
+![alt text](https://github.com/A1ex93/ddl_dml_homework/blob/main/image/1.4.png)
 
 1.5. Выполните запрос на получение списка прав для пользователя sys_temp. (скриншот)
 
 SHOW GRANTS FOR 'sys_temp';
 
+![alt text](https://github.com/A1ex93/ddl_dml_homework/blob/main/image/1.5.png)
+
 1.6. Переподключитесь к базе данных от имени sys_temp.
 
 docker exec -it mysql8 mysql -u sys_temp -p
 
-Для смены типа аутентификации с sha2 используйте запрос:
-
-ALTER USER 'sys_test'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+![alt text](https://github.com/A1ex93/ddl_dml_homework/blob/main/image/1.6.png)
 
 1.6. По ссылке https://downloads.mysql.com/docs/sakila-db.zip скачайте дамп базы данных.
+
+![alt text](https://github.com/A1ex93/ddl_dml_homework/blob/main/image/1.6.1.png)
 
 1.7. Восстановите дамп в базу данных.
 
@@ -50,6 +56,8 @@ ALTER USER 'sys_test'@'localhost' IDENTIFIED WITH mysql_native_password BY 'pass
 		docker cp backup.sql mysql_container:/backup.sql
 	2. Восстановить дамп в нужную базу 
 		docker exec -i mysql8 mysql -u root -p -D db_name -e "source /backup.sql"
+
+  ![alt text](https://github.com/A1ex93/ddl_dml_homework/blob/main/image/1.7.png)
 		
 
 1.8. При работе в IDE сформируйте ER-диаграмму получившейся базы данных. При работе в командной строке используйте команду для получения всех таблиц базы данных. (скриншот)
@@ -59,13 +67,17 @@ ALTER USER 'sys_test'@'localhost' IDENTIFIED WITH mysql_native_password BY 'pass
 
 	SHOW DATABASES;
 
+   ![alt text](https://github.com/A1ex93/ddl_dml_homework/blob/main/image/1.8.png)
+   ![alt text](https://github.com/A1ex93/ddl_dml_homework/blob/main/image/1.8.1.png)
+
 Результатом работы должны быть скриншоты обозначенных заданий, а также простыня со всеми запросами.
 
 # Задание 2
 Составьте таблицу, используя любой текстовый редактор или Excel, в которой должно быть два столбца: в первом должны быть названия таблиц восстановленной базы, во втором названия первичных ключей этих таблиц. Пример: (скриншот/текст)
 
-Название таблицы | Название первичного ключа
-customer         | customer_id
+ ![alt text](https://github.com/A1ex93/ddl_dml_homework/blob/main/image/2.1.png)
+
+ ![alt text](https://github.com/A1ex93/ddl_dml_homework/blob/main/image/2.2.png)
 
 SELECT
     t.table_name,
